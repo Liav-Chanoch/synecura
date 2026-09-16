@@ -428,10 +428,28 @@ html.js-rv #p-1.in .srow__go{
   background:var(--accent); color:var(--shell); border-radius:2px;
   padding:13px 20px; min-height:44px; font-weight:500; font-size:14px;
   opacity:0; transform:translateY(6px);
-  transition:opacity .5s var(--ease), transform .5s var(--ease), background .3s var(--ease);
+  box-shadow:0 0 16px -3px rgba(206,138,82,0.30);
+  transition:opacity .5s var(--ease), transform .5s var(--ease), background .3s var(--ease), box-shadow .3s var(--ease);
 }
 .sticky.on{ opacity:1; transform:none; }
-.sticky:hover{ background:var(--accent-hi); color:var(--shell); transform:translateY(-2px); }
+/* The brief said no glow. This is the second place the client has asked for
+   one, so it borrows the device the phone service rows already carry: an amber
+   bloom that swells on a long cycle and rests between passes, never a hard
+   edge. Only box-shadow is animated and there is no fill mode, so nothing is
+   left holding a value that the hover state has to fight. */
+@keyframes sticky-glow{
+  0%,58%,100%{ box-shadow:0 0 16px -3px rgba(206,138,82,0.30); }
+  22%{         box-shadow:0 0 30px 1px rgba(206,138,82,0.52); }
+}
+@media (prefers-reduced-motion: no-preference){
+  .sticky.on{ animation:sticky-glow 9s var(--ease) infinite; }
+}
+/* Later than the rule above and the same weight, so hovering settles the
+   cycle rather than fighting it. */
+.sticky:hover{
+  background:var(--accent-hi); color:var(--shell); transform:translateY(-2px);
+  box-shadow:0 0 30px 1px rgba(206,138,82,0.55); animation:none;
+}
 .sticky__sq{ width:8px; height:8px; background:var(--shell); }
 
 /* ---------- service overlay ---------- */
@@ -822,7 +840,7 @@ html.js-rv .screen.in .eyebrow-row::after{ animation:rv-line .72s .08s var(--exp
         <span class="sent__sq" aria-hidden="true"></span>
         <div>
           <p class="sent__t">Request sent.</p>
-          <p class="sent__b">We will come back to you by email at <b id="cf-sent-email"></b>.</p>
+          <p class="sent__b">We will get back to you at <b id="cf-sent-email"></b></p>
           <button class="sent__again" type="button" id="cf-again">Send another request</button>
         </div>
       </div>
