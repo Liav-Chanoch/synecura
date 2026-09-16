@@ -3,6 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18447410053"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-18447410053');
+</script>
 <title>Synecura, custom built systems for operations</title>
 <meta name="description" content="Synecura builds automated systems made specifically for your business. Start with a free strategy session and see where your business can save.">
 <link rel="canonical" href="https://synecura.com/">
@@ -1008,12 +1016,7 @@ STEPS.forEach(function(st, i){
     .then(function(r){ return r.json().catch(function(){ return { success:false }; }); })
     .then(function(j){
       if(!j.success) throw new Error('rejected');
-      var to = data.email;
-      form.reset();
-      say('');
-      document.getElementById('cf-sent-email').textContent = to;
-      form.hidden = true;
-      sent.classList.add('on');
+      location.href = '/thank-you/?email=' + encodeURIComponent(data.email);
     })
     .catch(function(){
       say('That did not send. Email info@synecura.com and we will pick it up.', 'err');
