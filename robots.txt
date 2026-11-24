@@ -10,5 +10,7 @@ Disallow: /blue/
 # v2 is a working copy of the live design, for review before anything reaches
 # the root. It is never linked to and never enters the sitemap.
 Disallow: /v2/
+# v5 is the walnut design the root carried before the light redesign.
+Disallow: /v5/
 
 Sitemap: https://synecura.com/sitemap.xml
